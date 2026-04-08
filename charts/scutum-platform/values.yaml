@@ -1,0 +1,98 @@
+# Scutum Platform Helm Values
+# Sovereign single-tenant deployment configuration
+
+global:
+  sovereignty:
+    region: "abudhabi"
+    tenant: "default"
+    dataResidency: "sovereign-primary"
+    classification: "restricted"
+
+  image:
+    registry: ghcr.io/scutum-defense
+    pullPolicy: IfNotPresent
+
+api:
+  enabled: true
+  replicas: 2
+  image:
+    repository: scutum-api
+    tag: "0.1.0"
+  port: 4000
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+  env:
+    SCUTUM_ENV: production
+    SCUTUM_LOG_LEVEL: info
+
+web:
+  enabled: true
+  replicas: 2
+  image:
+    repository: scutum-web
+    tag: "0.1.0"
+  port: 3000
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+ingestion:
+  enabled: true
+  replicas: 1
+  image:
+    repository: scutum-ingestion
+    tag: "0.1.0"
+
+auditLog:
+  enabled: true
+  replicas: 1
+  image:
+    repository: scutum-audit-log
+    tag: "0.1.0"
+
+postgresql:
+  enabled: true
+  auth:
+    database: scutum
+    username: scutum
+    existingSecret: scutum-db-credentials
+  primary:
+    persistence:
+      size: 50Gi
+      storageClass: ""
+
+redis:
+  enabled: true
+  architecture: standalone
+  auth:
+    enabled: true
+    existingSecret: scutum-redis-credentials
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts: []
+  tls: []
+
+networkPolicies:
+  enabled: true
+
+podSecurityContext:
+  runAsNonRoot: true
+  fsGroup: 1000
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop: [ALL]

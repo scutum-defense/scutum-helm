@@ -1,0 +1,25 @@
+# Helm
+charts/*.tgz
+*.tgz
+Chart.lock
+
+# Dependencies
+charts/scutum-platform/charts/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Helmignore
+.helmignore
+
+# Temporary
+tmp/
+temp/

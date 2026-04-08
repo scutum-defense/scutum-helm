@@ -1,0 +1,3 @@
+* @ScutumDefense/sre-release @ScutumDefense/platform-security
+/charts/scutum-platform/ @ScutumDefense/sre-release
+/charts/scutum-operator/ @ScutumDefense/sre-release @ScutumDefense/platform-security
